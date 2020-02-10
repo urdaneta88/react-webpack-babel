@@ -4,7 +4,7 @@
   "description": "Boilerplate for a project in react without the CLI of Create React App.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "webpack-dev-server --mode development --open --hot --port 3000",
     "build": "webpack --mode production",
     "format": "prettier --write \"src/**/*.js\"",
     "eslint-fix": "eslint --fix \"src/**/*.js\""

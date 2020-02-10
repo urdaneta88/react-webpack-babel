@@ -10,7 +10,7 @@ npm run format
 # Fixing eslint problems
 npm run eslint-fix
 
-# Serve on localhost:8080
+# Serve on localhost:3000
 npm start
 
 # Build for production

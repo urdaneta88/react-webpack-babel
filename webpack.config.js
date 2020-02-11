@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
-
+const CompressionPlugin = require('compression-webpack-plugin');
 module.exports = (env, argv) => {
   const isProd = argv.mode === 'production';
 
@@ -38,6 +38,21 @@ module.exports = (env, argv) => {
       ? [
           new HtmlWebpackPlugin({
             template: path.resolve('./src/index.html'),
+          }),
+          new CompressionPlugin({
+            filename: '[path].br[query]',
+            algorithm: 'brotliCompress',
+            test: /\.(js|css|html|svg)$/,
+            compressionOptions: { level: 11 },
+            threshold: 10240,
+            minRatio: 0.8,
+          }),
+          new CompressionPlugin({
+            filename: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$/,
+            threshold: 10240,
+            minRatio: 0.8,
           }),
         ]
       : [

@@ -14,7 +14,11 @@ module.exports = (env, argv) => {
       filename: 'bundle.js',
     },
     devServer: {
-      contentBase: './build',
+      contentBase: path.resolve(__dirname, './src'),
+      historyApiFallback: true,
+      port: 3000,
+      open: true,
+      hot: true,
     },
     module: {
       rules: [
@@ -22,6 +26,11 @@ module.exports = (env, argv) => {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: ['babel-loader', 'eslint-loader'],
+        },
+        {
+          test: /\.scss$/,
+          exclude: /node_modules/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
         },
       ],
     },
@@ -38,7 +47,7 @@ module.exports = (env, argv) => {
           new BundleAnalyzerPlugin(),
         ],
 
-    devtool: isProd ? '' : 'inline-source-map',
+    devtool: isProd ? 'source-map' : 'inline-source-map',
 
     performance: {
       hints: isProd ? false : 'warning',
@@ -53,6 +62,13 @@ module.exports = (env, argv) => {
             chunks: 'all',
           },
         },
+      },
+    },
+
+    resolve: {
+      alias: {
+        Components: path.resolve(__dirname, 'src/components/'),
+        Redux: path.resolve(__dirname, 'src/redux/'),
       },
     },
   };

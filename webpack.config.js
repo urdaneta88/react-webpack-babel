@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const CompressionPlugin = require('compression-webpack-plugin');
+
 module.exports = (env, argv) => {
   const isProd = argv.mode === 'production';
 
@@ -31,6 +32,10 @@ module.exports = (env, argv) => {
           test: /\.scss$/,
           exclude: /node_modules/,
           use: ['style-loader', 'css-loader', 'sass-loader'],
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
         },
       ],
     },
@@ -82,8 +87,9 @@ module.exports = (env, argv) => {
 
     resolve: {
       alias: {
-        Components: path.resolve(__dirname, 'src/components/'),
-        Redux: path.resolve(__dirname, 'src/redux/'),
+        '#Components': path.resolve(__dirname, 'src/components/'),
+        '#Styles': path.resolve(__dirname, 'src/styles/'),
+        '#Root': path.resolve(__dirname, 'src/'),
       },
     },
   };
